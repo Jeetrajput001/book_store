@@ -13,57 +13,78 @@ import java.util.List;
 
 @Controller
 public class BookController {
-  @Autowired
-   private BookService bookService;
-  @Autowired
-   private MyBookService myBookService;
-  @GetMapping("/")
-    public String home(){
-      return "home";
-  }
-  @GetMapping("/book_register")
-  public String bookRegister() {
-    return "bookRegister";
-  }
+    @Autowired
+    private BookService bookService;
+    @Autowired
+    private MyBookService myBookService;
 
-  @GetMapping("/available_books")
-  public String availableBook(Model model) {
-    List<Book> books=bookService.getAll();
-    model.addAttribute("books",books);
-    return "availableBook";
-  }
+    @GetMapping("/")
+    public String home() {
+        return "home";
+    }
 
-  @GetMapping("/my_books")
-  public String myBooks(Model model) {
-    List<MyBook> myBooks=myBookService.getAll();
-    model.addAttribute("books",myBooks);
-    return "myBooks";
-  }
+    @GetMapping("/book_register")
+    public String bookRegister() {
+        return "bookRegister";
+    }
 
-  @GetMapping("/addToMyBook/{id}")
-  public String addToMyBook(@PathVariable("id")int id ){
-    Book book= bookService.getBookById(id);
-    MyBook myBook= new MyBook(book.getId(), book.getName(),book.getAuthor(),book.getPrice());
-    myBookService.save(myBook);
-    return "redirect:/my_books";
-  }
-  @GetMapping("/deleteBook/{id}")
-  public String deleteMyBook(@PathVariable("id")int id ){
-    myBookService.deleteById(id);
-    return "redirect:/my_books";
-  }
+    @GetMapping("/available_books")
+    public String availableBook(Model model) {
+        List<Book> books = bookService.getAll();
+        model.addAttribute("books", books);
+        return "availableBook";
+    }
 
-  @PostMapping("/save")
-  public String addBook(@ModelAttribute Book b){
-    bookService.save(b);
-    return "redirect:/available_books";
-  }
+    @GetMapping("/my_books")
+    public String myBooks(Model model) {
+        List<MyBook> myBooks = myBookService.getAll();
+        model.addAttribute("books", myBooks);
+        return "myBooks";
+    }
 
-  @GetMapping("/search")
-  public String searchBook(@RequestParam("keyword") String keyword ,Model model){
-    List<Book> result=bookService.searchName(keyword);
-    model.addAttribute("books",result);
-    return "availableBook";
-  }
+    @GetMapping("/addToMyBook/{id}")
+    public String addToMyBook(@PathVariable("id") int id) {
+        Book book = bookService.getBookById(id);
+        MyBook myBook = new MyBook(book.getId(), book.getName(), book.getAuthor(), book.getPrice());
+        myBookService.save(myBook);
+        return "redirect:/my_books";
+    }
+
+    @GetMapping("/deleteBook/{id}")
+    public String deleteMyBook(@PathVariable("id") int id) {
+        myBookService.deleteById(id);
+        return "redirect:/my_books";
+    }
+    @GetMapping("/deleteBookFromAB/{id}")
+    public String deleteFromABook(@PathVariable("id") int id) {
+        bookService.deleteByIdFromAB(id);
+        return "redirect:/available_books";
+    }
+
+    @PostMapping("/save")
+    public String addBook(@ModelAttribute Book b) {
+        bookService.save(b);
+        return "redirect:/available_books";
+    }
+
+    @GetMapping("/search")
+    public String searchBook(@RequestParam("keyword") String keyword, Model model) {
+        List<Book> result = bookService.searchName(keyword);
+        model.addAttribute("books", result);
+        return "availableBook";
+    }
+    @GetMapping("/edit/{id}")
+    public String editBook(@PathVariable("id") int id, Model model) {
+        Book book =bookService.getBookById(id);
+        model.addAttribute("book", book);
+        return "editBook";
+    }
+
+    @PostMapping("/update")
+    public String updateBook(@ModelAttribute Book book) {
+        bookService.save(book);  // save() will update if id exists
+        return "redirect:/available_books";
+    }
+
 
 }

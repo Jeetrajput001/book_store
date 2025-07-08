@@ -1,71 +1,91 @@
 <!doctype html>
 <html lang="en" xmlns:th="https://www.thymeleaf.com">
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Books | Book Store</title>
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Bootstrap & FontAwesome -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        html, body {
+            height: 100%;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+        .container {
+            flex: 1;
+        }
+    </style>
 
-    <title>Book Store</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand text-white" href="#">Book Store</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand" href="#">📚 Book Store</a>
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link text-white active" aria-current="page" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="available_books">Available Books</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="my_books">My Books</a>
-                </li>
-
+        <div id="navbarNav" class="collapse navbar-collapse">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" th:href="@{/}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/available_books}">Available Books</a></li>
+                <li class="nav-item"><a class="nav-link active" th:href="@{/my_books}">My Books</a></li>
             </ul>
-            <div>
-
-                <a class="nav-link text-white" href="book_register">Register A New Book</a>
-            </div>
-
+            <a class="btn btn-outline-light" th:href="@{/book_register}"><i class="fas fa-plus"></i> Register Book</a>
         </div>
     </div>
 </nav>
+
+<!-- Main Content -->
 <div class="container my-5">
-    <table class="table table-striped table-hover">
-        <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Book Name</th>
-            <th scope="col">Author</th>
-            <th scope="col">Price</th>
-            <th scope="col">Delete</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="book : ${books}">
-            <td th:text="${book.id}">1</td>
-            <td th:text="${book.name}">Book Name</td>
-            <td th:text="${book.author}">Author</td>
-            <td th:text="${book.price}">Price</td>
-            <td>
-                <a  style="color:red" th:href="@{/deleteBook/{id}(id=${book.id})}" class="btn btn-secondary btn-sm" title="Delete Book">  <i class="fas fa-trash "></i> </a>
-            </td>
-        </tr>
-        </tbody>
-
-    </table>
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0"><i class="fas fa-book-reader"></i> My Books</h4>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Book Name</th>
+                    <th>Author</th>
+                    <th>Price</th>
+                    <th class="text-center">Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="book : ${books}">
+                    <td th:text="${book.id}">1</td>
+                    <td th:text="${book.name}">Book Name</td>
+                    <td th:text="${book.author}">Author</td>
+                    <td th:text="${book.price}">₹0</td>
+                    <td class="text-center">
+                        <a th:href="@{/deleteBook/{id}(id=${book.id})}"
+                           class="btn btn-sm btn-outline-danger"
+                           onclick="return confirm('Are you sure you want to delete this book?')"
+                           title="Delete Book">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+<footer class="bg-dark text-white text-center py-3 mt-5">
+    <div>© 2025 Book Store App. All rights reserved.</div>
+    <small><i class="fas fa-envelope"></i> support@bookstore.com</small>
+</footer>
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
