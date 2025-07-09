@@ -111,7 +111,7 @@ Made with ❤️ by Vishwajeet Singh
 
 📧 Email: vishwjeetsingh83@gmail.com
 
-🔗 LinkedIn: ![Vishwajeet Singh](https://www.linkedin.com/in/vishwajeet-singh-844b5622a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app)
+🔗 LinkedIn: https://www.linkedin.com/in/vishwajeet-singh-844b5622a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app
 
 🌐 GitHub: github.com/Jeetrajput001
 

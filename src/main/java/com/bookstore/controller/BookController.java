@@ -2,8 +2,10 @@ package com.bookstore.controller;
 
 import com.bookstore.entity.Book;
 import com.bookstore.entity.MyBook;
+import com.bookstore.repository.MybookRepository;
 import com.bookstore.service.BookService;
 import com.bookstore.service.MyBookService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,8 @@ public class BookController {
     private BookService bookService;
     @Autowired
     private MyBookService myBookService;
+    @Autowired
+     private MybookRepository mybookRepository;
 
     @GetMapping("/")
     public String home() {
@@ -58,6 +62,7 @@ public class BookController {
     @GetMapping("/deleteBookFromAB/{id}")
     public String deleteFromABook(@PathVariable("id") int id) {
         bookService.deleteByIdFromAB(id);
+        myBookService.deleteById(id);
         return "redirect:/available_books";
     }
 
@@ -80,11 +85,21 @@ public class BookController {
         return "editBook";
     }
 
+
     @PostMapping("/update")
     public String updateBook(@ModelAttribute Book book) {
-        bookService.save(book);  // save() will update if id exists
+        bookService.save(book);// save() will update if id exists
+        List<MyBook> relatedBooks = myBookService.getById(book.getId());
+
+        for (MyBook myBook : relatedBooks) {
+                myBook.setName(book.getName());
+                myBook.setAuthor(book.getAuthor());
+                myBook.setPrice(book.getPrice());
+                myBookService.save(myBook);
+        }
         return "redirect:/available_books";
     }
+
 
 
 }

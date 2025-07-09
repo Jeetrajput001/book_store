@@ -5,6 +5,7 @@ import com.bookstore.repository.MybookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -21,5 +22,8 @@ public class MyBookService {
 
     public void deleteById(int id) {
         mybookRepository.deleteById(id);
+    }
+    public List<MyBook> getById(int id){
+        return Collections.singletonList(mybookRepository.findById(id).orElse(null));
     }
 }

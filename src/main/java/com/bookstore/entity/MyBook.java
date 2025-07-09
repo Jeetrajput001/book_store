@@ -13,6 +13,9 @@ public class MyBook {
     private String author;
     private String price;
 
+
+
+
     public MyBook(int id, String name, String author, String price) {
         this.id = id;
         this.name = name;
@@ -30,6 +33,8 @@ public class MyBook {
     public void setId(int id) {
         this.id = id;
     }
+
+
 
     public String getName() {
         return name;
