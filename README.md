@@ -79,14 +79,21 @@ Home Page
 
 ![homePage](Screenshot/homepage.png)
 
-Available Books page
-[]
+Available Books page & Search functionality
+
+![](Screenshot/AvailableBook.png)
 
 My Books page
 
-Search functionality
+![](Screenshot/myBookPage.png)
 
-Add/Edit/Delete UI
+Edit functionality Page
+
+![](Screenshot/editBook.png)
+
+Add Book Page
+![](Screenshot/RegisterNewBook.png)
+
 
 🧠 How It Works
 Book data is stored in a MySQL database
@@ -100,9 +107,9 @@ Data flows through Controller → Service → Repository layers
 Search functionality filters books by title dynamically
 
 📬 Contact
-Made with ❤️ by Jeet Rajput
-📧 Email: jeet.rajput@example.com
-🔗 LinkedIn: linkedin.com/in/jeetrajput
+Made with ❤️ by Vishwajeet Singh
+📧 Email: vishwjeetsingh83@gmail.com
+🔗 LinkedIn: https://www.linkedin.com/in/vishwajeet-singh-844b5622a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app
 🌐 GitHub: github.com/Jeetrajput001
 
 “Built for clean code, intuitive UX, and real-world learning.”
