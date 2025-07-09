@@ -70,10 +70,17 @@ Copy
 Edit
 ./mvnw spring-boot:run
 Or run the BookStoreApplication class from your IDE.
-📸 Screenshots
-(Optional) Add screenshots of:
+___
+
+```
+### 📸 Screenshots
+
+Home Page
+
+![homePage](Screenshot/homepage.png)
 
 Available Books page
+[]
 
 My Books page
 
@@ -99,4 +106,4 @@ Made with ❤️ by Jeet Rajput
 🌐 GitHub: github.com/Jeetrajput001
 
 “Built for clean code, intuitive UX, and real-world learning.”
-![homePage](Screenshot/homepage.png)
+
