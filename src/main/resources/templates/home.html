@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en" xmlns:th="https://www.thymeleaf.com">
+<html lang="en" xmlns:th="https://www.thymeleaf.com"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -68,11 +69,41 @@
                 <li class="nav-item"><a class="nav-link" href="available_books">Available Books</a></li>
                 <li class="nav-item"><a class="nav-link" href="my_books">My Books</a></li>
             </ul>
-            <div>
-                <a class="btn btn-outline-light" href="book_register">
-                    <i class="fas fa-plus"></i> Register Book
-                </a>
+            <div class="d-flex gap-2">
+                <div sec:authorize="hasRole('ADMIN')">
+                    <a class="btn btn-outline-light" href="book_register">
+                        <i class="fas fa-plus"></i> Register Book
+                    </a>
+                </div>
+
+                <div class="ms-auto d-flex align-items-center">
+
+                    <!-- Only show if user is logged in -->
+                    <div sec:authorize="isAuthenticated()" class="dropdown">
+                        <a class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                           href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+                            <!-- Circle Avatar with First Letter of Name -->
+                            <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center me-2"
+                                 style="width: 40px; height: 40px; font-weight: bold;">
+                                <span th:text="${#authentication.name.substring(0,1).toUpperCase()}">U</span>
+                            </div>
+
+                            <!-- Username next to avatar (optional) -->
+                            <span th:text="${#authentication.name}">username</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <form th:action="@{/logout}" method="post" class="d-inline">
+                                    <button type="submit" class="dropdown-item text-danger">Logout</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
             </div>
+
         </div>
     </div>
 </nav>
