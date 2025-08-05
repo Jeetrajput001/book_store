@@ -47,6 +47,9 @@
 
 
                 <div class="ms-auto d-flex align-items-center">
+                    <div th:if="${message}" class="alert alert-info">
+                        <p th:text="${message}"></p>
+                    </div>
 
                     <!-- Only show if user is logged in -->
                     <div sec:authorize="isAuthenticated()" class="dropdown">
@@ -72,6 +75,7 @@
                     </div>
 
                 </div>
+
             </div>
         </div>
     </div>

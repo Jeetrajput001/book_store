@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface MybookRepository extends JpaRepository<MyBook,Integer> {
     List<MyBook> findByUser(User user);
+    boolean existsByBookIdAndUser(int bookId, User user);
+
 }

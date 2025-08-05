@@ -15,6 +15,9 @@ public class MyBook {
     private String author;
     private String price;
 
+    @Column(name = "bookid")
+    private int bookId;
+
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;

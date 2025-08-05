@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.security.Principal;
 import java.util.List;
 
@@ -58,15 +58,24 @@ public class BookController {
     }
 
     @GetMapping("/addToMyBook/{id}")
-    public String addToMyBook(@PathVariable("id") int id,Principal principal) {
+    public String addToMyBook(@PathVariable("id") int id,Principal principal,RedirectAttributes redirectAttributes) {
         Book book = bookService.getBookById(id);
         String username= principal.getName();
         User user=userRepository.findByUsername(username);
+        // ✅ Check if book already exists in user's MyBook
+        boolean exists = myBookService.existsByBookIdAndUser(id, user);
+        if (exists) {
+            redirectAttributes.addFlashAttribute("message", "📚 Book is already in your list!");
+            return "redirect:/my_books";
+        }
         MyBook myBook = new MyBook(book.getName(),book.getAuthor(),book.getPrice());
 
         myBook.setUser(user);
+        myBook.setBookId(id);
         myBookService.save(myBook);
+        redirectAttributes.addFlashAttribute("message", "✅ Book added to your list!");
         return "redirect:/my_books";
+
     }
 
     @GetMapping("/deleteBook/{id}")
